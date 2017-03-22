@@ -30,7 +30,7 @@ Compile and Install
 
 In order to install static library after building to the appropriate place
 configure script needs the --prefix option to set. Use e.g., /usr/local to
-have lib installed into /usr/local/includes/ and /usr/locab/lib. In case
+have lib installed into /usr/local/include/ and /usr/local/lib/. In case
 having insufficient privileges to do so, choose e.g., the user home directory
 `$HOME`.
 
