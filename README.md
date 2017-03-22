@@ -1,5 +1,8 @@
-libstk - Expanding Stack
-========================
+libstk - Expanding stack C library
+==================================
+
+Lightweight singly linked list implementation and expanding stack library.
+See header files under src for API documentation.
 
 
 Clone to Get
