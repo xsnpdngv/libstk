@@ -22,13 +22,6 @@
 #include "stk.h"
 
 
-/* ----- macros ------------------------------------------------------------ */
-
-
-#define STK_BLK_SIZE 32         /* stack block size - number of variable
-                                   wrapper elements allocated together */
-
-
 /* ----- function definitions ---------------------------------------------- */
 
 
@@ -49,12 +42,15 @@ char *test_strdup(const char *s)
 #endif
 
 
-stk_t *stkNew(void)
+stk_t *stkNew(size_t blkSz)
 {
     stk_t *s;
 
     if((s = malloc(sizeof(*s))))
+    {
         memset(s, 0, sizeof(*s));
+        s->blkSz = blkSz;
+    }
     return s;
 } /* stkNew */
 
@@ -69,7 +65,7 @@ stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var)
         /* from linked list of free ones */
         el = s->freeEls;
     }
-    else if(s->blks && s->blkEl < (struct stkEl_t *)(s->blks+1) + STK_BLK_SIZE)
+    else if(s->blks && s->blkEl < (struct stkEl_t *)(s->blks+1) + s->blkSz)
     {
         /* from already allocated block */
         el = s->blkEl;
@@ -78,7 +74,7 @@ stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var)
     {
         /* allocate new block */
         if((el = malloc(sizeof(struct stkBlk_t) +
-                        sizeof(struct stkEl_t) * STK_BLK_SIZE)) == NULL)
+                        sizeof(struct stkEl_t) * s->blkSz)) == NULL)
             return NULL;
         listAdd((struct stkBlk_t *)el, s->blks);
         s->blkEl = (struct stkEl_t *)((struct stkBlk_t *)el + 1);

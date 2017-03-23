@@ -26,7 +26,7 @@
  *
  * Usage example:
  *
- *        stk_t *s = stkNew();
+ *        stk_t *s = stkNew(128);
  *        stkPushInt(s, 10);
  *        if(!stkIsEmpty(s))
  *            printf("stack top: %s\n", stkValStr(s));
@@ -38,10 +38,13 @@
 #define __STK_H
 
 
+#include <stdlib.h>
+
 #include "list.h"
 
 
 /* ----- macros ------------------------------------------------------------ */
+
 
 /* if not GNU C, elide __attribute__ */
 #ifndef __GNUC__
@@ -116,6 +119,8 @@ typedef struct
 
     /* members for administrative use only */
 
+    size_t blkSz;               /**< stack block size - number of variable
+                                     wrapper elements allocated together */
     stkEl_t *freeEls;           /**< linked list of free elements */
     stkEl_t *blkEl;             /**< next usable element in most recent block */
     stkBlk_t *blks;             /**< linked list of allocated element blocks */
@@ -129,10 +134,13 @@ typedef struct
 /**
  * creates and initializes a new stack
  *
+ * @param  blkSz  block size - number of variable wrapper elements to
+ *                be allocated together on creation and expansion
+ *
  * @return  the return value of inside called malloc(): new stack pointer
  *          on success; NULL otherwise
  */
-stk_t *stkNew(void) __attribute__((malloc, warn_unused_result));
+stk_t *stkNew(size_t blkSz) __attribute__((malloc, warn_unused_result));
 
 
 /**

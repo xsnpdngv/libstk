@@ -30,7 +30,7 @@
 /** tests typed pushes and pops */
 static void test_pushPop()
 {
-    stk_t *s = stkNew();
+    stk_t *s = stkNew(32);
     void *pop;
 
     assert_non_null(s);
@@ -93,7 +93,7 @@ static void test_pushPop()
 /** test dynamic allocations */
 static void test_manyPushInts()
 {
-    stk_t *s = stkNew();
+    stk_t *s = stkNew(32);
     char str[32];
     int i;
 
@@ -118,7 +118,7 @@ static void test_manyPushInts()
 /** tests dynamic allocations with string entries */
 static void test_manyPushStrs()
 {
-    stk_t *s = stkNew();
+    stk_t *s = stkNew(32);
     char str[32];
     int i;
 
@@ -144,7 +144,7 @@ static void test_manyPushStrs()
 /** tests clear after several pushes */
 static void test_clear()
 {
-    stk_t *s = stkNew();
+    stk_t *s = stkNew(32);
     char str[32];
     int i;
 
@@ -161,7 +161,7 @@ static void test_clear()
 /** tests destroy after several dynamic allocations with string entries */
 static void test_destroy()
 {
-    stk_t *s = stkNew();
+    stk_t *s = stkNew(32);
     char str[32];
     int i;
 
