@@ -11,7 +11,7 @@
 AC_PREREQ([2.69])
 AC_INIT([libstk], [1.0], [dezso.t.tamas@gmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-AC_CONFIG_SRCDIR([src])
+AC_CONFIG_SRCDIR([src/stk.c])
 AC_CONFIG_HEADERS([config.h])
 
 # checks for programs
@@ -29,5 +29,5 @@ AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset strdup])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
