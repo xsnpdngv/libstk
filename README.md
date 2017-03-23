@@ -1,53 +1,41 @@
-libstk - Expanding stack C library
-==================================
+libstk
+======
 
 Lightweight singly linked list implementation and expanding stack library.
 See header files under src for API documentation.
 
+Prerequisites
+-------------
 
-Clone to Get
-------------
+It is needed to have GNU autotools installed for building libstk.
 
 ```bash
-git clone https://github.com/xsnpdngv/libstk.git
+sudo apt-get install autoconf automake
 ```
 
+Build
+-----
 
-Generate Configuration Script
------------------------------
-
-Autotools generate a portable script running which will result a target
-machine compliant Makefile.
-
-```bash
-cd libstk/src
-autoreconf -i
-```
-
-
-Compile and Install
--------------------
-
-In order to install static library after building to the appropriate place
-configure script needs the --prefix option to set. Use e.g., /usr/local to
-have lib installed into /usr/local/include/ and /usr/local/lib/. In case
-having insufficient privileges to do so, choose e.g., the user home directory
-`$HOME`.
+Run `autogen.sh` in order to generate the system specific Makefile through
+invoking the self generated configure script. Once the `autogen.sh` is run and
+so Makefile is resulted, the library can be compiled and installed.
 
 ```bash
-mkdir -p build && cd build
-../configure --prefix=$HOME
+./autogen.sh
 make
 make install
 ```
 
-
-Build Package
--------------
+By default `autogen.sh` runs the `configure` script with --prefix=$HOME, so
+on `make install` the target directories are `~/include` and `~/lib`.
+If other prefix is needed, edit `autogen.sh` prior to run. If a place
+is choosed that requires superuser privileges, issue `sudo make install`
+at last.
 
 In order to build a portable source code tarball with a ready made configure
 script make (and check) a distribution package:
 
 ```bash
 make distcheck
+make distclean
 ```

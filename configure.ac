@@ -11,7 +11,7 @@
 AC_PREREQ([2.69])
 AC_INIT([libstk], [1.0], [dezso.t.tamas@gmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-AC_CONFIG_SRCDIR([stk.c])
+AC_CONFIG_SRCDIR([src])
 AC_CONFIG_HEADERS([config.h])
 
 # checks for programs
