@@ -12,6 +12,6 @@ if test -z `which autoreconf`; then
     exit 1
 fi
 
-# Generated system independent (portable) configuration script
+# Generate system independent (portable) configuration script
 autoreconf --force --verbose --install || exit $?
 echo "Done."
