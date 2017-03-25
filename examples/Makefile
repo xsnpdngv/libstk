@@ -2,7 +2,7 @@ CFLAGS = -Wall -I$(HOME)/include
 LDFLAGS = -L$(HOME)/lib
 LDLIBS = -lstk
 
-SAMPLES = eg_list eg_stk
+SAMPLES = list_eg stk_eg
 
 .PHONY: samples clean
 
