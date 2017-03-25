@@ -70,7 +70,6 @@ Usage
 
 After installation, the library can be used just like any standard one.
 
-
 ### Include
 
 The program have to include the header and then can use the lib.
@@ -98,7 +97,6 @@ int main(int argc, char **argv)
 }
 ```
 
-
 ### Compile
 
 The compiler have to know where to find this header if not in a standard
@@ -108,8 +106,7 @@ location. The option `-I` can be used to let it know.
 cc -I$HOME/include stk_eg.c -c
 ```
 
-
-### Link
+### Link
 
 The linker needs the library to link it together with your program, so
 `-lstk` has to be provided. To find it in a non usual place, the option
@@ -118,7 +115,6 @@ The linker needs the library to link it together with your program, so
 ```bash
 cc -L$HOME/lib stk_eg.o -lstk -o stk_eg
 ```
-
 
 ### Makefile
 
