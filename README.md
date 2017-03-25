@@ -11,7 +11,7 @@ Install
 Either you can download the latest release as a portable source tarball,
 or clone the repo and autogenerate prior to configure, build and install.
 
-### 1.A., Download tarball
+### 1/A Download tarball
 
 To install `libstk` from source tarball, download latest tar.gz from
 [github.com/xsnpdngv/libstk/releases](https://github.com/xsnpdngv/libstk/releases).
@@ -22,7 +22,7 @@ tar xzvf libstk-1.0.tar.gz
 cd libstk-1.0
 ```
 
-### 1.B., Clone repo
+### 1/B Clone repo
 
 To build from the repository itself, it is needed to have GNU
 autotools installed. Through the `autogen.sh` script this will generate
@@ -34,12 +34,12 @@ cd libstk
 ./autogen.sh
 ```
 
-### [ 1.C., Copy source ]
+### 1/C Copy source
 
 Naturally it is an option too to simply copy out the sources from `src`
 and compile them together with your project.
 
-### 2., Configure and build
+### 2 Configure and build
 
 After the previous step the system specific configuration follows. In order
 to have the library installed to a non-standard place (due to e.g.,
@@ -55,7 +55,7 @@ make install
 In this case headers go to `$HOME/include` and the compiled library object
 goes to `$HOME/lib`.
 
-### [ 3., Build distribution package ]
+### [ 3 Build distribution package ]
 
 In order to (re)generate the distribution tarball the `distcheck`
 make target needs to be built.
@@ -69,6 +69,9 @@ Usage
 -----
 
 After installation, the library can be used just like any standard one.
+
+### Include
+
 The program have to include the header and then can use the lib.
 
 ```c
@@ -94,12 +97,26 @@ int main(int argc, char **argv)
 }
 ```
 
+### Compile
+
 The compiler have to know where to find this header if not in a standard
-location. The option `-I` can be used to give it e.g., `-I$(HOME)/include`.
+location. The option `-I` can be used to let it know.
+
+```bash
+cc -I$HOME/include stk_eg.c -c
+```
+
+### Link
 
 The linker needs the library to link it together with your program, so
-`-lstk` have to be provided. To find it in a non usual place, the option
-`-L` is also needed to specify it e.g., `-L$(HOME)/lib`.
+`-lstk` has to be provided. To find it in a non usual place, the option
+`-L` is also needed to specify it.
+
+```bash
+cc -L$HOME/lib stk_eg.o -lstk -o stk_eg
+```
+
+### Makefile
 
 To use the library through a Makefile the followings are needed.
 
