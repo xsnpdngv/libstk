@@ -29,9 +29,8 @@ int main(int argc, char **argv)
     listReverse(head);
 
     /* print entries */
-    listForEach(pos, head) {
+    listForEach(pos, head)
         printf("%d\n", pos->i);
-    }
 
     return 0;
 }

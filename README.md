@@ -4,13 +4,14 @@ Expanding Stack library
 Lightweight singly linked list implementation and expanding stack library.
 See header files under `src` for API documentation.
 
+
 Install
 -------
 
 Either you can download the latest release as a portable source tarball,
-or clone the repo and autogenerate what is needed to build it.
+or clone the repo and autogenerate prior to configure, build and install.
 
-### 1.A., Download
+### 1.A., Download tarball
 
 To install `libstk` from source tarball, download latest tar.gz from
 [github.com/xsnpdngv/libstk/releases](https://github.com/xsnpdngv/libstk/releases).
@@ -21,7 +22,7 @@ tar xzvf libstk-1.0.tar.gz
 cd libstk-1.0
 ```
 
-### 1.B., Clone
+### 1.B., Clone repo
 
 To build from the repository itself, it is needed to have GNU
 autotools installed. Through the `autogen.sh` script this will generate
@@ -33,11 +34,16 @@ cd libstk
 ./autogen.sh
 ```
 
-### 2., Configure and make
+### [ 1.C., Copy source ]
+
+Naturally it is an option too to simply copy out the sources from `src`
+and compile them together with your project.
+
+### 2., Configure and build
 
 After the previous step the system specific configuration follows. In order
-to have the library installed to a non-standard place (e.g., due to
-insufficient privileges), an alternative location can be provided to
+to have the library installed to a non-standard place (due to e.g.,
+insufficient privileges), an alternative location can be provided in
 the configuration phase via the `--prefix` option.
 
 ```bash
@@ -45,6 +51,9 @@ the configuration phase via the `--prefix` option.
 make
 make install
 ```
+
+In this case headers go to `$HOME/include` and the compiled library object
+goes to `$HOME/lib`.
 
 ### [ 3., Build distribution package ]
 
@@ -55,11 +64,11 @@ make target needs to be built.
 make distcheck
 ```
 
+
 Usage
 -----
 
 After installation, the library can be used just like any standard one.
-
 The program have to include the header and then can use the lib.
 
 ```c
@@ -88,18 +97,16 @@ int main(int argc, char **argv)
 The compiler have to know where to find this header if not in a standard
 location. The option `-I` can be used to give it e.g., `-I$(HOME)/include`.
 
-The linker needs the library to link it together with the program, so
+The linker needs the library to link it together with your program, so
 `-lstk` have to be provided. To find it in a non usual place, the option
-`-L` is also needed to name it e.g., `-L$(HOME)/lib`.
+`-L` is also needed to specify it e.g., `-L$(HOME)/lib`.
 
-An example Makefile utilizing all the above, would look like below.
+To use the library through a Makefile the followings are needed.
 
 ```Makefile
 CFLAGS  = -I$(HOME)/include
 LDFLAGS = -L$(HOME)/lib
 LDLIBS  = -lstk
-
-program:
 ```
 
 See the `examples` directory for samples.
