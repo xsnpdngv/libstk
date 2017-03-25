@@ -102,4 +102,4 @@ LDLIBS  = -lstk
 program:
 ```
 
-See the example folder for samples.
+See the `examples` directory for samples.
