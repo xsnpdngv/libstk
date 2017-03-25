@@ -13,7 +13,7 @@ or clone the repo and autogenerate what is needed to build it.
 ### 1.A., Download
 
 To install `libstk` from source tarball, download latest tar.gz from
-`https://github.com/xsnpdngv/libstk/releases`.
+[github.com/xsnpdngv/libstk/releases](https://github.com/xsnpdngv/libstk/releases).
 
 ```bash
 wget https://github.com/xsnpdngv/libstk/releases/download/v1.0/libstk-1.0.tar.gz
@@ -46,7 +46,7 @@ make
 make install
 ```
 
-### [3., Build distribution package]
+### [ 3., Build distribution package ]
 
 In order to (re)generate the distribution tarball the `distcheck`
 make target needs to be built.
