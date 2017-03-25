@@ -29,7 +29,7 @@
  *        stk_t *s = stkNew(128);
  *        stkPushInt(s, 10);
  *        if(!stkIsEmpty(s))
- *            printf("stack top: %s\n", stkValStr(s));
+ *            printf("stack top: %s\n", stkValToStr(s));
  *        stkDestroy(s);
  */
 
@@ -51,33 +51,68 @@
 #  define __attribute__(x) /* nothing */
 #endif
 
+
 /** pushes variable into stack by type */
-#define stkPush(s, type, var)   __stkPush(s, type, (stkVar_t)(var))
-#define stkPushInt(s, Int) stkPush(s, 'i', (int)Int)    /**< pushes integer into stack */
-#define stkPushDbl(s, Dbl) stkPush(s, 'd', (double)Dbl) /**< pushes double into stack */
-#define stkPushChr(s, Chr) stkPush(s, 'c', (char)Chr)   /**< pushes character into stack */
-#define stkPushStr(s, Str) stkPush(s, 's', (char *)Str) /**< pushes string into stack */
-#define stkPushPtr(s, Ptr) stkPush(s, 'p', (void *)Ptr) /**< pushes pointer into stack */
+#define stkPush(s, type, var) \
+        _stkPush(s, type, (stkVar_t)(var))
+
+#define stkPushInt(s, Int) /**< pushes integer into stack */\
+        stkPush(s, 'i', (int)Int)
+
+#define stkPushDbl(s, Dbl) /**< pushes double into stack */\
+        stkPush(s, 'd', (double)Dbl)
+
+#define stkPushChr(s, Chr) /**< pushes character into stack */\
+        stkPush(s, 'c', (char)Chr)
+
+#define stkPushStr(s, Str) /**< pushes string into stack */\
+        stkPush(s, 's', (char *)Str)
+
+#define stkPushPtr(s, Ptr) /**< pushes pointer into stack */\
+        stkPush(s, 'p', (void *)Ptr)
 
 /** tests whether stack is empty */
-#define stkIsEmpty(s)  ((s)->top == NULL)
+#define stkIsEmpty(s) \
+        ((s)->top == NULL)
 
 /** gets top element's type */
-#define stkType(s)  (stkIsEmpty(s) ? '\0' : (s)->top->type)
-#define stkIsInt(s) (stkType(s) == 'i') /**< checks if an int is at stack's top */
-#define stkIsDbl(s) (stkType(s) == 'd') /**< checks if a double is at stack's top */
-#define stkIsChr(s) (stkType(s) == 'c') /**< checks if a character is at stack's top */
-#define stkIsStr(s) (stkType(s) == 's') /**< checks if a string is at stack's top */
-#define stkIsPtr(s) (stkType(s) == 'p') /**< checks if a pointer is at stack's top */
+#define stkType(s) \
+        (stkIsEmpty(s) ? '\0' : (s)->top->type)
+
+#define stkIsInt(s) /**< checks if an int is at stack's top */\
+        (stkType(s) == 'i')
+
+#define stkIsDbl(s) /**< checks if a double is at stack's top */\
+        (stkType(s) == 'd')
+
+#define stkIsChr(s) /**< checks if a character is at stack's top */\
+        (stkType(s) == 'c')
+
+#define stkIsStr(s) /**< checks if a string is at stack's top */\
+        (stkType(s) == 's')
+
+#define stkIsPtr(s) /**< checks if a pointer is at stack's top */\
+        (stkType(s) == 'p')
 
 /** gets top element, use only of !stkIsEmpty */
-#define stkVal(s)    ((s)->top->var)
-#define stkValInt(s) (stkVal(s).i) /**< gets top value as int, use only if stkIsInt */
-#define stkValDbl(s) (stkVal(s).d) /**< gets top value as double, use only if stkIsDbl */
-#define stkValChr(s) (stkVal(s).c) /**< gets top value as character, use only if stkIsChr */
-#define stkValStr(s) (stkVal(s).s) /**< gets top value as string, use only if stkIsStr */
-#define stkValPtr(s) (stkVal(s).p) /**< gets top value as pointer, use only if stkIsPtr || stkIsStr */
-/* NOTE: stkToStr() is also available (defined as function) */
+#define stkVal(s) ((s)->top->var)
+
+#define stkValInt(s) /**< gets top value as int, use only if stkIsInt */\
+        (stkVal(s).i)
+
+#define stkValDbl(s) /**< gets top value as double, use only if stkIsDbl */\
+        (stkVal(s).d)
+
+#define stkValChr(s) /**< gets top value as character, use only if stkIsChr */\
+        (stkVal(s).c)
+
+#define stkValStr(s) /**< gets top value as string, use only if stkIsStr */\
+        (stkVal(s).s)
+
+#define stkValPtr(s) /**< gets top as pointer, only if stkIsPtr || stkIsStr */\
+        (stkVal(s).p)
+
+/* NOTE: stkValToStr() is also available (defined as function) */
 
 
 /* ----- types ------------------------------------------------------------- */
@@ -140,7 +175,9 @@ typedef struct
  * @return  the return value of inside called malloc(): new stack pointer
  *          on success; NULL otherwise
  */
-stk_t *stkNew(size_t blkSz) __attribute__((malloc, warn_unused_result));
+stk_t *
+stkNew(size_t blkSz)
+    __attribute__((malloc, warn_unused_result));
 
 
 /**
@@ -159,7 +196,9 @@ stk_t *stkNew(size_t blkSz) __attribute__((malloc, warn_unused_result));
  *               and destroy
  * @note         intended to be used through `stkPushXxx()` macros
  */
-stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var) __attribute__((nonnull(1)));
+stkEl_t *
+_stkPush(stk_t *s, char type, stkVar_t var)
+    __attribute__((nonnull(1)));
 
 
 /**
@@ -168,19 +207,25 @@ stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var) __attribute__((nonnull(1))
  *
  * @return  address of new top element after pop; NULL if empty
  */
-stkEl_t *stkPop(stk_t *s) __attribute__((nonnull(1)));
+stkEl_t *
+stkPop(stk_t *s)
+    __attribute__((nonnull(1)));
 
 
 /**
  * clears stack by popping each element out from the stack
  */
-void stkClear(stk_t *s) __attribute__((nonnull(1)));
+void
+stkClear(stk_t *s)
+    __attribute__((nonnull(1)));
 
 
 /**
  * destroys stack by freeing all allocated resources regarding
  */
-void stkDestroy(stk_t *s) __attribute__((nonnull(1)));
+void
+stkDestroy(stk_t *s)
+    __attribute__((nonnull(1)));
 
 
 /**
@@ -189,7 +234,9 @@ void stkDestroy(stk_t *s) __attribute__((nonnull(1)));
  * @return  in case top element is a string itself, returns it;
  *          otherwise returns the buffer to which the element is printed
  */
-char *stkValToStr(stk_t *s) __attribute__((nonnull(1)));
+char *
+stkValToStr(stk_t *s)
+    __attribute__((nonnull(1)));
 
 
 #endif /* __STK_H */

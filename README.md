@@ -1,41 +1,86 @@
-libstk
-======
+Expanding Stack library
+=======================
 
 Lightweight singly linked list implementation and expanding stack library.
-See header files under src for API documentation.
+See header files under `src` for API documentation.
 
-Prerequisites
--------------
+Install
+-------
 
-It is needed to have GNU autotools installed for building libstk.
+Either you can download the latest release as a portable source tarball,
+or clone the repo and autogenerate what is needed to build it.
+
+### 1.A., Download
+
+To install `libstk` from source tarball, download latest tar.gz from
+`https://github.com/xsnpdngv/libstk/releases`.
 
 ```bash
-sudo apt-get install autoconf automake
+wget https://github.com/xsnpdngv/libstk/releases/download/v1.0/libstk-1.0.tar.gz
+tar xzvf libstk-1.0.tar.gz
+cd libstk-1.0
 ```
 
-Build
------
+### 1.B., Clone
 
-Run `autogen.sh` in order to generate the system specific Makefile through
-invoking the self generated configure script. Once the `autogen.sh` is run and
-so Makefile is resulted, the library can be compiled and installed.
+To build from the repository itself, it is needed to have GNU
+autotools installed. Through the `autogen.sh` script this will generate
+a portable `configure` script running which results system specific Makefile.
 
 ```bash
+git clone https://github.com/xsnpdngv/libstk.git
+cd libstk
 ./autogen.sh
+```
+
+### 2., Configure and make
+
+After the previous step the system specific configuration follows. In order
+to have the library installed to a non-standard place (e.g., due to
+insufficient privileges), an alternative location can be provided to
+the configuration phase via the `--prefix` option.
+
+```bash
+./configure --prefix=$HOME
 make
 make install
 ```
 
-By default `autogen.sh` runs the `configure` script with --prefix=$HOME, so
-on `make install` the target directories are `~/include` and `~/lib`.
-If other prefix is needed, edit `autogen.sh` prior to run. If a place
-is choosed that requires superuser privileges, issue `sudo make install`
-at last.
+### [3., Build distribution package]
 
-In order to build a portable source code tarball with a ready made configure
-script make (and check) a distribution package:
+In order to (re)generate the distribution tarball the `distcheck`
+make target needs to be built.
 
 ```bash
 make distcheck
-make distclean
 ```
+
+Usage
+-----
+
+After installation, the library can be used just like any standard one.
+
+The program have to include the header:
+
+```c
+#include <stk.h>
+```
+
+The compiler have to know where to find this header if not in a standard
+location. The option `-I` can be used to give it e.g., `-I$(HOME)/include`.
+
+The linker needs the library to link it together with the program, so
+`-lstk` have to be provided. To find it in a non usual place, the option
+`-L` is also needed to name it e.g., `-L$(HOME)/lib`.
+
+An example Makefile utilizing all the above, would look like below.
+
+```Makefile
+CFLAGS  = -I$(HOME)/include
+LDFLAGS = -L$(HOME)/lib
+LDLIBS  = -lstk
+
+program:
+```
+
+See the example folder for samples.

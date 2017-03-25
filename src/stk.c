@@ -42,7 +42,8 @@ char *test_strdup(const char *s)
 #endif
 
 
-stk_t *stkNew(size_t blkSz)
+stk_t *
+stkNew(size_t blkSz)
 {
     stk_t *s;
 
@@ -55,7 +56,8 @@ stk_t *stkNew(size_t blkSz)
 } /* stkNew */
 
 
-stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var)
+stkEl_t *
+_stkPush(stk_t *s, char type, stkVar_t var)
 {
     struct stkEl_t *el;
 
@@ -103,10 +105,11 @@ stkEl_t *__stkPush(stk_t *s, char type, stkVar_t var)
         listAdd(s->blkEl++, s->top);
 
     return el;
-} /* __stkPush */
+} /* _stkPush */
 
 
-stkEl_t *stkPop(stk_t *s)
+stkEl_t *
+stkPop(stk_t *s)
 {
     if(s->top)
     {
@@ -118,14 +121,16 @@ stkEl_t *stkPop(stk_t *s)
 } /* stkPop */
 
 
-void stkClear(stk_t *s)
+void
+stkClear(stk_t *s)
 {
     while(stkPop(s))
         ;
 } /* stkClear */
 
 
-void stkDestroy(stk_t *s)
+void
+stkDestroy(stk_t *s)
 {
     struct stkBlk_t *blk, *tmpBlk;
 
@@ -137,7 +142,8 @@ void stkDestroy(stk_t *s)
 } /* stkDestroy */
 
 
-char *stkValToStr(stk_t *s)
+char *
+stkValToStr(stk_t *s)
 {
     static char str[32];
 
