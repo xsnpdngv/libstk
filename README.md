@@ -60,10 +60,29 @@ Usage
 
 After installation, the library can be used just like any standard one.
 
-The program have to include the header:
+The program have to include the header and then can use the lib.
 
 ```c
+#include <stdio.h>
 #include <stk.h>
+
+int main(int argc, char **argv)
+{
+    stk_t *s = stkNew(128);
+    int i;
+
+    for(i = 0; i < 10; i++)
+        stkPushInt(s, i);
+
+    while(!stkIsEmpty(s))
+    {
+        printf("%s\n", stkValToStr(s));
+        stkPop(s);
+    }
+
+    stkDestroy(s);
+    return 0;
+}
 ```
 
 The compiler have to know where to find this header if not in a standard
