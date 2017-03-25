@@ -2,8 +2,11 @@ CFLAGS = -Wall -I$(HOME)/include
 LDFLAGS = -L$(HOME)/lib
 LDLIBS = -lstk
 
-program:
+SAMPLES = eg_list eg_stk
 
-.PHONY: clean
+.PHONY: samples clean
+
+samples: $(SAMPLES)
+
 clean:
-	rm -f program
+	rm -f $(SAMPLES)
