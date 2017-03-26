@@ -10,10 +10,11 @@ Install
 
 Either you can download the latest release as a portable source tarball,
 or clone the repo and autogenerate prior to configure, build and install.
+Alternatively you can just copy and use the sources.
 
 ### 1/A. Download tarball
 
-To install `libstk` from source tarball, download latest tar.gz from
+To install `libstk` library from source tarball, download latest tar.gz from
 [github.com/xsnpdngv/libstk/releases](https://github.com/xsnpdngv/libstk/releases).
 
 ```bash
@@ -99,7 +100,7 @@ int main(int argc, char **argv)
 
 ### Compile
 
-The compiler have to know where to find this header if not in a standard
+The compiler have to know where to find the header if not in a standard
 location. The option `-I` can be used to let it know.
 
 ```bash
