@@ -55,21 +55,16 @@
 /** pushes variable into stack by type */
 #define stkPush(s, type, var) \
         _stkPush(s, type, (stkVar_t)(var))
-
-#define stkPushInt(s, Int) /**< pushes integer into stack */\
-        stkPush(s, 'i', (int)Int)
-
-#define stkPushDbl(s, Dbl) /**< pushes double into stack */\
-        stkPush(s, 'd', (double)Dbl)
-
-#define stkPushChr(s, Chr) /**< pushes character into stack */\
-        stkPush(s, 'c', (char)Chr)
-
-#define stkPushStr(s, Str) /**< pushes string into stack */\
-        stkPush(s, 's', (char *)Str)
-
-#define stkPushPtr(s, Ptr) /**< pushes pointer into stack */\
-        stkPush(s, 'p', (void *)Ptr)
+#define stkPushInt(s, Int) \
+        stkPush(s, 'i', (int)Int)    /**< pushes integer into stack */
+#define stkPushDbl(s, Dbl) \
+        stkPush(s, 'd', (double)Dbl) /**< pushes double into stack */
+#define stkPushChr(s, Chr) \
+        stkPush(s, 'c', (char)Chr)   /**< pushes character into stack */
+#define stkPushStr(s, Str) \
+        stkPush(s, 's', (char *)Str) /**< pushes string into stack */
+#define stkPushPtr(s, Ptr) \
+        stkPush(s, 'p', (void *)Ptr) /**< pushes pointer into stack */
 
 /** tests whether stack is empty */
 #define stkIsEmpty(s) \
@@ -78,40 +73,29 @@
 /** gets top element's type */
 #define stkType(s) \
         (stkIsEmpty(s) ? '\0' : (s)->top->type)
-
-#define stkIsInt(s) /**< checks if an int is at stack's top */\
-        (stkType(s) == 'i')
-
-#define stkIsDbl(s) /**< checks if a double is at stack's top */\
-        (stkType(s) == 'd')
-
-#define stkIsChr(s) /**< checks if a character is at stack's top */\
-        (stkType(s) == 'c')
-
-#define stkIsStr(s) /**< checks if a string is at stack's top */\
-        (stkType(s) == 's')
-
-#define stkIsPtr(s) /**< checks if a pointer is at stack's top */\
-        (stkType(s) == 'p')
+#define stkIsInt(s) \
+        (stkType(s) == 'i') /**< checks if an int is at stack's top */
+#define stkIsDbl(s) \
+        (stkType(s) == 'd') /**< checks if a double is at stack's top */
+#define stkIsChr(s) \
+        (stkType(s) == 'c') /**< checks if a character is at stack's top */
+#define stkIsStr(s) \
+        (stkType(s) == 's') /**< checks if a string is at stack's top */
+#define stkIsPtr(s) \
+        (stkType(s) == 'p') /**< checks if a pointer is at stack's top */
 
 /** gets top element, use only of !stkIsEmpty */
 #define stkVal(s) ((s)->top->var)
-
-#define stkValInt(s) /**< gets top value as int, use only if stkIsInt */\
-        (stkVal(s).i)
-
-#define stkValDbl(s) /**< gets top value as double, use only if stkIsDbl */\
-        (stkVal(s).d)
-
-#define stkValChr(s) /**< gets top value as character, use only if stkIsChr */\
-        (stkVal(s).c)
-
-#define stkValStr(s) /**< gets top value as string, use only if stkIsStr */\
-        (stkVal(s).s)
-
-#define stkValPtr(s) /**< gets top as pointer, only if stkIsPtr || stkIsStr */\
-        (stkVal(s).p)
-
+#define stkValInt(s) \
+        (stkVal(s).i) /**< gets top value as int, use only if stkIsInt */
+#define stkValDbl(s) \
+        (stkVal(s).d) /**< gets top value as double, use only if stkIsDbl */
+#define stkValChr(s) \
+        (stkVal(s).c) /**< gets top value as character, use only if stkIsChr */
+#define stkValStr(s) \
+        (stkVal(s).s) /**< gets top value as string, use only if stkIsStr */
+#define stkValPtr(s) \
+        (stkVal(s).p) /**< gets top as pointer, only if stkIsPtr || stkIsStr */
 /* NOTE: stkValToStr() is also available (defined as function) */
 
 
@@ -120,47 +104,47 @@
 
 typedef union
 {
-    int    i;                   /**< integer */
-    double d;                   /**< double */
-    char   c;                   /**< character */
-    char  *s;                   /**< string */
-    void  *p;                   /**< pointer */
+    int    i;                   /* integer */
+    double d;                   /* double */
+    char   c;                   /* character */
+    char  *s;                   /* string */
+    void  *p;                   /* pointer */
 
-} stkVar_t; /**< stack variable */
+} stkVar_t; /* stack variable */
 
 
 typedef struct stkEl_t
 {
-    stkVar_t var;               /**< variable, must be the first member */
-    char type;                  /**< type of variable */
-    struct stkEl_t *LIST_LINK;  /**< link to next element on list */
+    stkVar_t var;               /* variable, must be the first member */
+    char type;                  /* type of variable */
+    struct stkEl_t *LIST_LINK;  /* link to next element on list */
 
-} stkEl_t; /**< stack variable wrapper element */
+} stkEl_t; /* stack variable wrapper element */
 
 
 typedef struct stkBlk_t
 {
-    struct stkBlk_t *LIST_LINK; /**< link to next allocated block on list */
+    struct stkBlk_t *LIST_LINK; /* link to next allocated block on list */
 
     /* NOTE: actually the utilisable space that is allocated as block
              comes after this struct */
 
-} stkBlk_t; /**< allocated block of stack variable wrappers */
+} stkBlk_t; /* allocated block of stack variable wrappers */
 
 
 typedef struct
 {
-    stkEl_t *top;               /**< stack top (linked list of used elements) */
+    stkEl_t *top;               /* stack top (linked list of used elements) */
 
     /* members for administrative use only */
 
-    size_t blkSz;               /**< stack block size - number of variable
-                                     wrapper elements allocated together */
-    stkEl_t *freeEls;           /**< linked list of free elements */
-    stkEl_t *blkEl;             /**< next usable element in most recent block */
-    stkBlk_t *blks;             /**< linked list of allocated element blocks */
+    size_t blkSz;               /* stack block size - number of variable
+                                   wrapper elements allocated together */
+    stkEl_t *freeEls;           /* linked list of free elements */
+    stkEl_t *blkEl;             /* next usable element in most recent block */
+    stkBlk_t *blks;             /* linked list of allocated element blocks */
 
-} stk_t; /**< stack */
+} stk_t; /* stack */
 
 
 /* ----- function signatures ----------------------------------------------- */

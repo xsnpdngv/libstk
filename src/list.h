@@ -159,7 +159,7 @@
 
 
 /**
- * adds new unique entry to list tail (if a matching one is not yet present)
+ * adds new unique entry to list tail if a matching one is not yet present
  *
  * @param  new    pointer to the new entry that is to be added (struct *)
  * @param  head   the head variable (struct *) to add entry to list pointed by;
