@@ -40,7 +40,7 @@ cd libstk
 Naturally it is an option too to simply copy out the sources from `src`
 and compile them together with your project.
 
-### 2. Configure and build
+### 2. Configure, build and install
 
 After the previous step the system specific configuration follows. In order
 to have the library installed to a non-standard place (due to e.g.,
@@ -56,14 +56,32 @@ make install
 In this case headers go to `$HOME/include` and the compiled library object
 goes to `$HOME/lib`.
 
-### [ 3. Build distribution package ]
+### [ 3. Optional ]
 
-In order to (re)generate the distribution tarball the `distcheck`
-make target needs to be built.
+With `make check` the library unit tests can be run to check
+functionality, however this step requires the
+[cmocka unit testing framework](https://cmocka.org) to be previously installed.
 
 ```bash
-make distcheck
+# cmake
+sudo apt-get install cmake
+# cmocka unit testing framework
+CMVER=1.1.0
+curl -R -O https://cmocka.org/files/1.1/cmocka-${CMVER}.tar.xz
+unxz cmocka-${CMVER}.tar.xz
+tar xvf cmocka-${CMVER}.tar
+cd cmocka-${CMVER}
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Debug ..
+make
+sudo make install
 ```
+
+With `make distcheck` the distribution tarball can be (re)generated.
+
+With `make uninstall` the package can be safely removed from the install
+location.
 
 
 Usage
