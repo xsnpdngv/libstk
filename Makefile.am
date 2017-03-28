@@ -1,11 +1,16 @@
 ## ===========================================================================
 ## @file    Makefile.am
-## @brief   automake configuration file for static library
+## @brief   automake configuration file for library
 ## @author  Tamas Dezso <dezso.t.tamas@gmail.com>
-## @date    March 23, 2017
+## @date    March 28, 2017
 ##
-## to be processed with automake in order to produce Makefile.in
+## Process this file with automake (autoreconf -i) to produce Makefile.in.
 ## ===========================================================================
 
-SUBDIRS = src
-dist_doc_DATA = README.md
+ACLOCAL_AMFLAGS = -I m4 --install
+
+lib_LTLIBRARIES = libstk.la
+include_HEADERS = src/list.h src/stk.h
+libstk_la_SOURCES = src/stk.c
+
+#doc_DATA = README.md
