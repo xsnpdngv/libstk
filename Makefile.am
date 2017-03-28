@@ -13,4 +13,17 @@ lib_LTLIBRARIES = libstk.la
 include_HEADERS = src/list.h src/stk.h
 libstk_la_SOURCES = src/stk.c
 
-#doc_DATA = README.md
+#dist_doc_DATA = README.md
+
+# unit tests with cmocka (make check)
+check_PROGRAMS = list_test stk_test
+
+list_test_SOURCES = test/list_test.c
+list_test_CFLAGS = -Isrc/
+list_test_LDADD = -lcmocka
+
+stk_test_SOURCES = test/stk_test.c
+stk_test_CFLAGS = -Isrc/
+stk_test_LDADD = libstk.la -lcmocka
+
+TESTS = $(check_PROGRAMS)
