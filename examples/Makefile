@@ -9,4 +9,4 @@ SAMPLES = list_eg stk_eg
 samples: $(SAMPLES)
 
 clean:
-	rm -f $(SAMPLES)
+	rm -f $(SAMPLES) *.o
