@@ -2,3 +2,6 @@
 *.o
 *_test
 *_eg
+docs/html
+docs/latex
+docs/man
