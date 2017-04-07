@@ -1,7 +1,7 @@
 #!/bin/sh
 # ============================================================================
-# @file    autogen.sh
-# @brief   auto generation shell script to prepare portable configure script
+# @file    bootstrap
+# @brief   shell script to prepare portable configure script
 # @author  Tamas Dezso <dezso.t.tamas@gmail.com>
 # @date    March 23, 2017
 # ============================================================================
